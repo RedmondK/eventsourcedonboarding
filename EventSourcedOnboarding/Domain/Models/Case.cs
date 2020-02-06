@@ -14,6 +14,8 @@ namespace Domain
 
         public Case(Guid entityId, string entityName)
         {
+            Id = Guid.NewGuid();
+
             Raise(new EntityCreatedEvent(entityId, entityName));
         }
     }
