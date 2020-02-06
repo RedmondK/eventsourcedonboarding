@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using CaseManagementAPI.Requests;
 using Domain.Commands;
 using EventStore.ClientAPI;
 using EventStoreFramework;
@@ -43,9 +44,9 @@ namespace CaseManagementAPI.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CreateEntityRequest request)
         {
-            var createEntityCommand = new CreateEntityCommand(value);
+            var createEntityCommand = new CreateEntityCommand(request.EntityName);
 
             _commandDispatcher.Dispatch(createEntityCommand);
         }

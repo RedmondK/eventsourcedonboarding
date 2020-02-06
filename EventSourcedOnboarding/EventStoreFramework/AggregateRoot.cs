@@ -23,6 +23,10 @@ namespace EventStoreFramework
         {
             _events.Clear();
         }
+        protected void Register<T>(Action<T> when)
+        {
+            _handlers.Add(typeof(T), e => when((T)e));
+        }
 
         public void Apply(object e)
         {
