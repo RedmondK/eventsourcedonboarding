@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain
+namespace EventStoreFramework
 {
-    public class Case
+    class EventStoreRepository
     {
     }
 }

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStoreFramework", "EventStoreFramework\EventStoreFramework.csproj", "{45118769-B773-4874-A820-79C4127AEDBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseManagementAPI", "CaseManagementAPI\CaseManagementAPI.csproj", "{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45118769-B773-4874-A820-79C4127AEDBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45118769-B773-4874-A820-79C4127AEDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45118769-B773-4874-A820-79C4127AEDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45118769-B773-4874-A820-79C4127AEDBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
