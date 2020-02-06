@@ -4,7 +4,16 @@ using System.Text;
 
 namespace EventStoreFramework
 {
-    class IAggregateRoot
+    public interface IAggregateRoot
     {
+        List<object> GetEvents();
+
+        void ClearEvents();
+
+        void Apply(object e);
+
+        Guid Id { get; }
+
+        int Version { get; }
     }
 }
