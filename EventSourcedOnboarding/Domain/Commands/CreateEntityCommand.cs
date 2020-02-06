@@ -4,7 +4,16 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    class CreateEntityCommand
+    public class CreateEntityCommand
     {
+        public CreateEntityCommand(string entityName)
+        {
+            EntityId = Guid.NewGuid();
+            EntityName = entityName;
+        }
+
+        public Guid EntityId { get; }
+
+        public String EntityName { get; }
     }
 }

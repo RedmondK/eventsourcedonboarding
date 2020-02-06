@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    class CompleteCaseCommand
+    public class CompleteCaseCommand
     {
+        public CompleteCaseCommand(Guid caseGuid)
+        {
+            CaseGuid = caseGuid;
+        }
+
+        public Guid CaseGuid { get; }
     }
 }

@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    class ConfirmEntityDataCommand
+    public class ConfirmEntityDataCommand
     {
+        public ConfirmEntityDataCommand(Guid entityGuid)
+        {
+            EntityGuid = entityGuid;
+        }
+
+        public Guid EntityGuid { get; }
     }
 }
