@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain
+namespace Domain.Commands
 {
-    class Entity
+    class CompleteCaseCommand
     {
     }
 }
