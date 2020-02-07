@@ -7,6 +7,7 @@ namespace Domain.Enums
     public enum CaseType
     {
         Onboarding
+        ,Offboarding
         ,Maintenance
         ,Review
     }
