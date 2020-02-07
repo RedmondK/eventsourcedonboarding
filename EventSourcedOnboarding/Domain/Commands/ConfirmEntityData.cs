@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    public class ConfirmEntityDataCommand
+    public class ConfirmEntityData
     {
-        public ConfirmEntityDataCommand(Guid entityGuid)
+        public ConfirmEntityData(Guid entityGuid)
         {
             EntityGuid = entityGuid;
         }

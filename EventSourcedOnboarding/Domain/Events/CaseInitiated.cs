@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Domain.Events
 {
-    public class CaseInitiatedEvent
+    public class CaseInitiated
     {
-        public CaseInitiatedEvent(Guid caseId, CaseType caseType)
+        public CaseInitiated(Guid caseId, CaseType caseType)
         {
             CaseId = caseId;
             CaseType = caseType;

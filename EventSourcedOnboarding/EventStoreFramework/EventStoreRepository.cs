@@ -2,18 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventStoreFramework
 {
     public class EventStoreRepository
     {
-        readonly IEventStoreConnection _connection;
+        readonly IEventStoreConnection eventStoreConnection;
 
         public EventStoreRepository(IEventStoreConnection connection)
         {
-            _connection = connection;
+            this.eventStoreConnection = connection;
         }
 
         public async Task<T> Get<T>(Guid id) where T : IAggregateRoot
@@ -33,7 +32,7 @@ namespace EventStoreFramework
                 .GetEvents()
                 .Select(ToEventData);
 
-            return _connection.AppendToStreamAsync(StreamName(aggregateRoot.GetType(), aggregateRoot.Id), aggregateRoot.Version, events);
+            return eventStoreConnection.AppendToStreamAsync(StreamName(aggregateRoot.GetType(), aggregateRoot.Id), aggregateRoot.Version, events);
         }
 
         static EventData ToEventData(object e)
@@ -59,7 +58,7 @@ namespace EventStoreFramework
 
             do
             {
-                slice = await _connection.ReadStreamEventsForwardAsync(streamName, sliceStart, 200, false);
+                slice = await eventStoreConnection.ReadStreamEventsForwardAsync(streamName, sliceStart, 200, false);
                 deserializedEvents.AddRange(slice.Events.Select(e => e.Deserialize()));
                 sliceStart = slice.NextEventNumber;
 

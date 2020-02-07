@@ -10,6 +10,7 @@ using EventStoreFramework;
 using EventStoreFramework.Command;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProjectionFramework;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,11 +22,13 @@ namespace CaseManagementAPI.Controllers
     {
         private readonly ILogger<CaseController> _logger;
         private readonly Dispatcher _commandDispatcher;
+        private readonly Projector _projector;
 
         public CaseController(ILogger<CaseController> logger)
         {
             _logger = logger;
             _commandDispatcher = SetupDispatcher().GetAwaiter().GetResult();
+            _projector = SetupProjector().GetAwaiter().GetResult();
         }
 
         // GET: api/<controller>
@@ -39,14 +42,16 @@ namespace CaseManagementAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            _projector.Start();
+
+            return "";
         }
 
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]CreateEntityRequest request)
         {
-            var createEntityCommand = new CreateEntityCommand(request.EntityName);
+            var createEntityCommand = new CreateEntity(request.EntityName);
 
             _commandDispatcher.Dispatch(createEntityCommand);
         }
@@ -76,7 +81,22 @@ namespace CaseManagementAPI.Controllers
             var commandHandlerMap = new CommandHandlerMap(new Handlers(repository));
 
             return new Dispatcher(commandHandlerMap);
+        }
 
+        private static async Task<Projector> SetupProjector()
+        {
+            var eventStoreConnection = EventStoreConnection.Create(
+                ConnectionSettings.Default,
+                new IPEndPoint(IPAddress.Loopback, 1113));
+
+            await eventStoreConnection.ConnectAsync();
+
+            var projections = new List<IProjection>
+            {
+                new CaseProjection()
+            };
+
+            return new Projector(eventStoreConnection, projections, new MongoDAL.MongoDBRepository());
         }
     }
 }

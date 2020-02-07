@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Domain.Events
 {
-    public class EntityCreatedEvent
+    public class EntityCreated
     {
-        public EntityCreatedEvent(Guid entityId, string entityName)
+        public EntityCreated(Guid entityId, string entityName)
         {
             EntityId = entityId;
             EntityName = entityName;

@@ -1,16 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommandFramework\CommandFramework.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\EventStoreFramework\EventStoreFramework.csproj" />
     <ProjectReference Include="..\MongoDAL\MongoDAL.csproj" />
-    <ProjectReference Include="..\Projection\Projection.csproj" />
   </ItemGroup>
-
 
 </Project>

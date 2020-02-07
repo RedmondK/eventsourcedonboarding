@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    public class CreateEntityCommand
+    public class CreateEntity
     {
-        public CreateEntityCommand(string entityName)
+        public CreateEntity(string entityName)
         {
             EntityId = Guid.NewGuid();
             EntityName = entityName;

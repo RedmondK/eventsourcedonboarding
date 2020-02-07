@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommandFramework\CommandFramework.csproj" />
+    <ProjectReference Include="..\MongoDAL\MongoDAL.csproj" />
   </ItemGroup>
 
 </Project>

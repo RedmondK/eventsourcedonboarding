@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    public class CompleteCaseCommand
+    public class CompleteCase
     {
-        public CompleteCaseCommand(Guid caseGuid)
+        public CompleteCase(Guid caseGuid)
         {
             CaseGuid = caseGuid;
         }

@@ -15,24 +15,24 @@ namespace Domain
 
         public Case(CaseType caseType, Guid entityId, string entityName) : this()
         {
-            Raise(new CaseInitiatedEvent(Guid.NewGuid(), caseType));
-            Raise(new EntityCreatedEvent(entityId, entityName));
+            Raise(new CaseInitiated(Guid.NewGuid(), caseType));
+            Raise(new EntityCreated(entityId, entityName));
         }
 
         private Case()
         {
-            Register<CaseInitiatedEvent>(When);
-            Register<EntityCreatedEvent>(When);
+            Register<CaseInitiated>(When);
+            Register<EntityCreated>(When);
         }
 
-        public void When(CaseInitiatedEvent e)
+        public void When(CaseInitiated e)
         {
             Id = e.CaseId;
             CaseType = e.CaseType;
             CurrentStatus = CaseStatus.InProgress;
         }
 
-        public void When(EntityCreatedEvent e)
+        public void When(EntityCreated e)
         {
             EntityName = e.EntityName;
         }

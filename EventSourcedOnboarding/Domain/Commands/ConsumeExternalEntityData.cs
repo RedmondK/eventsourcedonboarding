@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    public class ConsumeExternalEntityDataCommand
+    public class ConsumeExternalEntityData
     {
-        public ConsumeExternalEntityDataCommand(Guid entityGuid, string externalEntityDataSet)
+        public ConsumeExternalEntityData(Guid entityGuid, string externalEntityDataSet)
         {
             EntityGuid = entityGuid;
             ExternalEntityDataSet = externalEntityDataSet;

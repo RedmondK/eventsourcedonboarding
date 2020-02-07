@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{478CB6C8-3879-4D65-9D59-1EE1E40073D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{478CB6C8-3879-4D65-9D59-1EE1E40073D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTests", "DomainTests\DomainTests.csproj", "{DC0B38AE-E019-42BF-8E6F-EA25FFA17D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStoreFramework", "EventStoreFramework\EventStoreFramework.csproj", "{45118769-B773-4874-A820-79C4127AEDBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreFramework", "EventStoreFramework\EventStoreFramework.csproj", "{45118769-B773-4874-A820-79C4127AEDBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseManagementAPI", "CaseManagementAPI\CaseManagementAPI.csproj", "{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaseManagementAPI", "CaseManagementAPI\CaseManagementAPI.csproj", "{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandFramework", "CommandFramework\CommandFramework.csproj", "{AFA1DF92-9F74-4841-9CDD-3DDADF7C6061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDAL", "MongoDAL\MongoDAL.csproj", "{3AAAC216-0F6B-4FF8-8BEA-13CBEE7A2A60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projection", "Projection\Projection.csproj", "{8C32BB04-8854-4D1D-A506-1313A81051A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugger", "Debugger\Debugger.csproj", "{F48C82C2-51B6-4C0E-B009-5BBB318B3417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7C9002-49BC-44AE-BAAC-E9AB0C5C7B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA1DF92-9F74-4841-9CDD-3DDADF7C6061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA1DF92-9F74-4841-9CDD-3DDADF7C6061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA1DF92-9F74-4841-9CDD-3DDADF7C6061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA1DF92-9F74-4841-9CDD-3DDADF7C6061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AAAC216-0F6B-4FF8-8BEA-13CBEE7A2A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AAAC216-0F6B-4FF8-8BEA-13CBEE7A2A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AAAC216-0F6B-4FF8-8BEA-13CBEE7A2A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AAAC216-0F6B-4FF8-8BEA-13CBEE7A2A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C32BB04-8854-4D1D-A506-1313A81051A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C32BB04-8854-4D1D-A506-1313A81051A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C32BB04-8854-4D1D-A506-1313A81051A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C32BB04-8854-4D1D-A506-1313A81051A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48C82C2-51B6-4C0E-B009-5BBB318B3417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48C82C2-51B6-4C0E-B009-5BBB318B3417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48C82C2-51B6-4C0E-B009-5BBB318B3417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48C82C2-51B6-4C0E-B009-5BBB318B3417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
