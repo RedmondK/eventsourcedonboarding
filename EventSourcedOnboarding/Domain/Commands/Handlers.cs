@@ -8,7 +8,7 @@ namespace Domain.Commands
     {
         public Handlers(EventStoreRepository repository)
         {
-            Register<CreateEntityCommand>(async c =>
+            Register<CreateEntity>(async c =>
             {
                 var onboardingCase = new Case(CaseType.Onboarding, c.EntityId, c.EntityName);
                 await repository.Save(onboardingCase);
