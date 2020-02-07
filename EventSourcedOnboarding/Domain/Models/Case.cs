@@ -11,23 +11,29 @@ namespace Domain
     {
         public string EntityName { get; set; }
         public CaseStatus CurrentStatus { get; set; }
+        public CaseType CaseType { get; set; }
 
-        public Case(Guid entityId, string entityName) : this()
+        public Case(CaseType caseType, Guid entityId, string entityName) : this()
         {
-            Id = Guid.NewGuid();
-
+            Raise(new CaseInitiatedEvent(Guid.NewGuid(), caseType));
             Raise(new EntityCreatedEvent(entityId, entityName));
         }
 
         private Case()
         {
+            Register<CaseInitiatedEvent>(When);
             Register<EntityCreatedEvent>(When);
+        }
+
+        public void When(CaseInitiatedEvent e)
+        {
+            Id = e.CaseId;
+            CaseType = e.CaseType;
+            CurrentStatus = CaseStatus.InProgress;
         }
 
         public void When(EntityCreatedEvent e)
         {
-            CurrentStatus = CaseStatus.InProgress;
-            Id = e.EntityId;
             EntityName = e.EntityName;
         }
     }

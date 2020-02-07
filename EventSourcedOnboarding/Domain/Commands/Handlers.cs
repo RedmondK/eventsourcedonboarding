@@ -1,4 +1,5 @@
-﻿using EventStoreFramework;
+﻿using Domain.Enums;
+using EventStoreFramework;
 using EventStoreFramework.Command;
 
 namespace Domain.Commands
@@ -9,7 +10,7 @@ namespace Domain.Commands
         {
             Register<CreateEntityCommand>(async c =>
             {
-                var onboardingCase = new Case(c.EntityId, c.EntityName);
+                var onboardingCase = new Case(CaseType.Onboarding, c.EntityId, c.EntityName);
                 await repository.Save(onboardingCase);
             });
         }
