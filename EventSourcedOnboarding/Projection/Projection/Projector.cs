@@ -1,4 +1,5 @@
 ﻿using EventStore.ClientAPI;
+using EventStore.ClientAPI.SystemData;
 using EventStoreFramework;
 using MongoDAL;
 using MongoDB.Bson;
@@ -34,15 +35,26 @@ namespace ProjectionFramework
         {
             var checkpoint = GetPosition(projection.GetType());
 
-            var sub = eventStoreConnection.SubscribeToAllFrom(
-                checkpoint,
-                CatchUpSubscriptionSettings.Default,
-                EventAppeared(projection),
-                LiveProcessingStarted(projection));
-
-            var events = eventStoreConnection.ReadStreamEventsForwardAsync("Case+073dce4d-5693-4e1a-9635-1a83ab12236c", 0, 10, true).Result;
-
-            int x = 0;
+            try
+            {
+                var sub = eventStoreConnection.SubscribeToAllFrom(
+                    Position.Start,
+                    CatchUpSubscriptionSettings.Default,
+                    (s, e) =>
+                    {
+                        if (e.Event.EventType != "$statsCollected")
+                        {
+                            Console.WriteLine("Event Appeared: " + e.Event.EventType);
+                        }
+                    },
+                    (s) => Console.WriteLine($"Projection {projection.GetType().Name} has caught up, now processing live"),
+                    userCredentials: new UserCredentials("admin", "changeit")
+                );
+            }
+            catch(Exception e)
+            {
+                int x = 0;
+            }
         }
 
         Action<EventStoreCatchUpSubscription> LiveProcessingStarted(IProjection projection)
@@ -50,21 +62,24 @@ namespace ProjectionFramework
             return s => Console.WriteLine($"Projection {projection.GetType().Name} has caught up, now processing live");
         }
 
-        Action<EventStoreCatchUpSubscription, ResolvedEvent> EventAppeared(IProjection projection)
+        Action<EventStoreCatchUpSubscription, ResolvedEvent> EventAppeared()
         {
             return (s, e) =>
             {
-                Console.WriteLine($"Event Appeared");
-
-                if (!projection.CanHandle(e.Event.EventType))
+                if(e.Event.EventType != "$statsCollected")
                 {
-                    return;
+                    Console.WriteLine("Event Appeared: " + e.Event.EventType);
                 }
 
-                var deserializedEvent = e.Deserialize();
-                projection.Handle(e.Event.EventType, deserializedEvent);
+                //if (!projection.CanHandle(e.Event.EventType))
+                //{
+                //    return;
+                //}
 
-                UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
+                //var deserializedEvent = e.Deserialize();
+                //projection.Handle(e.Event.EventType, deserializedEvent);
+
+                //UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
             };
         }
 
