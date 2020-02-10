@@ -1,4 +1,5 @@
-﻿using Domain.Commands;
+﻿using CaseManagementAPI.Requests;
+using Domain.Commands;
 using EventStore.ClientAPI;
 using EventStoreFramework;
 using EventStoreFramework.Command;
@@ -23,6 +24,15 @@ namespace CaseManagementAPI.Controllers
         {
             _logger = logger;
             _commandDispatcher = SetupDispatcher().GetAwaiter().GetResult();
+        }
+
+        // POST api/<controller>
+        [HttpPost]
+        public void Post([FromBody]AddBasicDetailsRequest request)
+        {
+            var addBasicDetailsCommand = new AddBasicDetails(request.CaseID, request.EntityID, request.DateOfBirth, request.CountryOfResidence);
+
+            _commandDispatcher.Dispatch(addBasicDetailsCommand);
         }
 
         private static async Task<Dispatcher> SetupDispatcher()
