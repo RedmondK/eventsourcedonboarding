@@ -1,5 +1,4 @@
-﻿using Domain.Commands;
-using Domain.Enums;
+﻿using Domain.Enums;
 using Domain.Events;
 using EventStoreFramework;
 using System;
@@ -31,12 +30,12 @@ namespace Domain
         {
             Register<CaseInitiated>(When);
             Register<EntityCreated>(When);
-            Register<AddBasicDetails>(When);
+            Register<BasicDetailsAdded>(When);
         }
 
         public void AddBasicDetails(string dateOfBirth, string countryOfResidence)
         {
-            Raise(new AddBasicDetails(Id, EntityId, dateOfBirth, countryOfResidence));
+            Raise(new BasicDetailsAdded(EntityId, dateOfBirth, countryOfResidence));
         }
 
         public void When(CaseInitiated e)
@@ -52,7 +51,7 @@ namespace Domain
             EntityName = e.EntityName;
         }
 
-        public void When(AddBasicDetails e)
+        public void When(BasicDetailsAdded e)
         {
             EntityDateOfBirth = e.DateOfBirth;
             EntityCountryOfResidence = e.CountryOfResidence;
