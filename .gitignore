@@ -349,5 +349,15 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# VSCode user files
+.vscode/
+
 # EventStore database and logs
 eventstore/
+
+# Mongo DB content
+
+mongo/
+
+# Infrastructure As Code Files
+iac/
