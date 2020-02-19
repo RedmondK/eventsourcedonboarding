@@ -35,7 +35,7 @@ namespace Domain
 
         public void AddBasicDetails(string dateOfBirth, string countryOfResidence)
         {
-            Raise(new BasicDetailsAdded(EntityId, dateOfBirth, countryOfResidence));
+            Raise(new BasicDetailsAdded(Id, EntityId, dateOfBirth, countryOfResidence));
         }
 
         public void When(CaseInitiated e)

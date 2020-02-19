@@ -1,6 +1,7 @@
 ﻿using Domain.Events;
 using MongoDAL;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace ProjectionFramework
 {
