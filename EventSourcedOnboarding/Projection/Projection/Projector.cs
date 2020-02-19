@@ -38,7 +38,7 @@ namespace ProjectionFramework
             try
             {
                 var sub = eventStoreConnection.SubscribeToAllFrom(
-                    Position.Start,
+                    checkpoint,
                     CatchUpSubscriptionSettings.Default,
                     EventAppeared(projection),
                     LiveProcessingStarted(projection),
