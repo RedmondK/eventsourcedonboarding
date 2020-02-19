@@ -358,6 +358,3 @@ eventstore/
 # Mongo DB content
 
 mongo/
-
-# Infrastructure As Code Files
-iac/
