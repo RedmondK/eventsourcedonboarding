@@ -40,14 +40,8 @@ namespace ProjectionFramework
                 var sub = eventStoreConnection.SubscribeToAllFrom(
                     Position.Start,
                     CatchUpSubscriptionSettings.Default,
-                    (s, e) =>
-                    {
-                        if (e.Event.EventType != "$statsCollected")
-                        {
-                            Console.WriteLine("Event Appeared: " + e.Event.EventType);
-                        }
-                    },
-                    (s) => Console.WriteLine($"Projection {projection.GetType().Name} has caught up, now processing live"),
+                    EventAppeared(projection),
+                    LiveProcessingStarted(projection),
                     userCredentials: new UserCredentials("admin", "changeit")
                 );
             }
@@ -62,7 +56,7 @@ namespace ProjectionFramework
             return s => Console.WriteLine($"Projection {projection.GetType().Name} has caught up, now processing live");
         }
 
-        Action<EventStoreCatchUpSubscription, ResolvedEvent> EventAppeared()
+        Action<EventStoreCatchUpSubscription, ResolvedEvent> EventAppeared(IProjection projection)
         {
             return (s, e) =>
             {
@@ -71,15 +65,15 @@ namespace ProjectionFramework
                     Console.WriteLine("Event Appeared: " + e.Event.EventType);
                 }
 
-                //if (!projection.CanHandle(e.Event.EventType))
-                //{
-                //    return;
-                //}
+                if (!projection.CanHandle(e.Event.EventType))
+                {
+                    return;
+                }
 
-                //var deserializedEvent = e.Deserialize();
-                //projection.Handle(e.Event.EventType, deserializedEvent);
+                var deserializedEvent = e.Deserialize();
+                projection.Handle(e.Event.EventType, deserializedEvent);
 
-                //UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
+                UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
             };
         }
 
@@ -113,9 +107,9 @@ namespace ProjectionFramework
             var projectionStateCollection = projectionRepository.GetCollection("ProjectionState");
 
             var filter = Builders<BsonDocument>.Filter.Eq("Id", projection.Name);
-            var state = projectionStateCollection.Find(filter).First();
-
-            if (state == null)
+            var state = projectionStateCollection.Find(filter);
+            
+            if (state.CountDocuments() == 0)
             {
                 var document = new BsonDocument
                 {
