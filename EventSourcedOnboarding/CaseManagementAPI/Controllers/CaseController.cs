@@ -28,7 +28,6 @@ namespace CaseManagementAPI.Controllers
         {
             _logger = logger;
             _commandDispatcher = SetupDispatcher().GetAwaiter().GetResult();
-            _projector = SetupProjector().GetAwaiter().GetResult();
         }
 
         // GET: api/<controller>
@@ -42,8 +41,6 @@ namespace CaseManagementAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            _projector.Start();
-
             return "";
         }
 
@@ -81,22 +78,6 @@ namespace CaseManagementAPI.Controllers
             var commandHandlerMap = new CommandHandlerMap(new Handlers(repository));
 
             return new Dispatcher(commandHandlerMap);
-        }
-
-        private static async Task<Projector> SetupProjector()
-        {
-            var eventStoreConnection = EventStoreConnection.Create(
-                ConnectionSettings.Default,
-                new IPEndPoint(IPAddress.Loopback, 1113));
-
-            await eventStoreConnection.ConnectAsync();
-
-            var projections = new List<IProjection>
-            {
-                new CaseProjection()
-            };
-
-            return new Projector(eventStoreConnection, projections, new MongoDAL.MongoDBRepository());
         }
     }
 }
