@@ -67,6 +67,7 @@ namespace ProjectionFramework
 
                 if (!projection.CanHandle(e.Event.EventType))
                 {
+                    UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
                     return;
                 }
 
