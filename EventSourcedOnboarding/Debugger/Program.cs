@@ -16,13 +16,15 @@ namespace Debugger
 
             eventStoreConnection.ConnectAsync().Wait();
 
+            var mongoRepository = new MongoDAL.MongoDBRepository();
+
             var projections = new List<IProjection>
             {
-                new CaseProjection()
-                ,new EntityProjection()
+                new CaseProjection(mongoRepository)
+                ,new EntityProjection(mongoRepository)
             };
 
-            var p = new Projector(eventStoreConnection, projections, new MongoDAL.MongoDBRepository());
+            var p = new Projector(eventStoreConnection, projections, mongoRepository);
 
             p.Start();
 

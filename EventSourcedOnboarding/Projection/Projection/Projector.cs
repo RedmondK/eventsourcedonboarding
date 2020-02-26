@@ -35,20 +35,28 @@ namespace ProjectionFramework
         {
             var checkpoint = GetPosition(projection.GetType());
 
-            try
-            {
-                var sub = eventStoreConnection.SubscribeToAllFrom(
-                    checkpoint,
-                    CatchUpSubscriptionSettings.Default,
-                    EventAppeared(projection),
-                    LiveProcessingStarted(projection),
-                    userCredentials: new UserCredentials("admin", "changeit")
-                );
-            }
-            catch(Exception e)
-            {
-                int x = 0;
-            }
+            var sub = eventStoreConnection.SubscribeToAllFrom(
+                checkpoint,
+                new CatchUpSubscriptionSettings(500, 100, true, false),
+                EventAppeared(projection),
+                LiveProcessingStarted(projection),
+                SubDropped(),
+                userCredentials: new UserCredentials("admin", "changeit")
+            );
+
+            Console.WriteLine("Started Projection: " + projection.GetType().Name);
+        }
+
+        Action<EventStoreCatchUpSubscription, SubscriptionDropReason, Exception> SubDropped() {
+            return (s,r,e) => { 
+                Console.WriteLine("***************************************************************");
+                Console.WriteLine("Sub Dropped: " + r.ToString());
+                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine("StackTrace: " + e.StackTrace);
+                Console.WriteLine("Inner Exception: " + e.InnerException.Message);
+                Console.WriteLine("Inner Exception ST: " + e.InnerException.StackTrace);
+                Console.WriteLine("***************************************************************");
+            };
         }
 
         Action<EventStoreCatchUpSubscription> LiveProcessingStarted(IProjection projection)
@@ -60,16 +68,16 @@ namespace ProjectionFramework
         {
             return (s, e) =>
             {
-                if(e.Event.EventType != "$statsCollected")
-                {
-                    Console.WriteLine("Event Appeared: " + e.Event.EventType);
-                }
-
                 if (!projection.CanHandle(e.Event.EventType))
                 {
                     UpdatePosition(projection.GetType(), e.OriginalPosition.Value);
                     return;
                 }
+
+                Console.WriteLine("Processing");
+                Console.WriteLine(e.Event.EventStreamId);
+                Console.WriteLine(e.Event.EventNumber);
+                Console.WriteLine(e.Event.EventType);
 
                 var deserializedEvent = e.Deserialize();
                 projection.Handle(e.Event.EventType, deserializedEvent);

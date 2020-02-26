@@ -16,6 +16,11 @@ namespace MongoDAL
             mongoClient = new MongoClient("mongodb://admin:admin@localhost:27017/");
         }
 
+        public MongoDBRepository(string connectionString)
+        {
+            mongoClient = new MongoClient(connectionString);
+        }
+
         public void Connect()
         {
             database = mongoClient.GetDatabase("eventsourcedonboarding");

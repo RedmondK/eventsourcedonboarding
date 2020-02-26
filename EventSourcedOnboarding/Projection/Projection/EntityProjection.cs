@@ -10,12 +10,15 @@ namespace ProjectionFramework
 {
     public class EntityProjection : Projection
     {
-        public EntityProjection()
+        public EntityProjection(MongoDBRepository projectionRepository)
         {
-            MongoDBRepository projectionRepository = new MongoDBRepository();
-
             When<EntityCreated>(e =>
             {
+                if (e.EntityId == null || e.EntityName == null)
+                {
+                    return;
+                }
+
                 projectionRepository.Connect();
                 var entityCollection = projectionRepository.GetCollection("Entity");
 
@@ -30,6 +33,11 @@ namespace ProjectionFramework
 
             When<BasicDetailsAdded>(e =>
             {
+                if (e.DateOfBirth == null || e.CountryOfResidence == null)
+                {
+                    return;
+                }
+
                 projectionRepository.Connect();
 
                 var filter = Builders<BsonDocument>.Filter.Eq("Id", e.EntityId);

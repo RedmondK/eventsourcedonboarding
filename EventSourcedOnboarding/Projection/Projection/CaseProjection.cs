@@ -7,12 +7,15 @@ namespace ProjectionFramework
 {
     public class CaseProjection : Projection
     {
-        public CaseProjection()
+        public CaseProjection(MongoDBRepository projectionRepository)
         {
-            MongoDBRepository projectionRepository = new MongoDBRepository();
-
             When<CaseInitiated>(e =>
             {
+                if (e.CaseId == null)
+                {
+                    return;
+                }
+
                 projectionRepository.Connect();
                 var caseCollection = projectionRepository.GetCollection("Case");
 
