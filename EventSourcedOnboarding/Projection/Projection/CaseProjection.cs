@@ -1,7 +1,9 @@
-﻿using Domain.Events;
+﻿using Domain.Enums;
+using Domain.Events;
 using MongoDAL;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 
 namespace ProjectionFramework
 {
@@ -22,7 +24,8 @@ namespace ProjectionFramework
                 var document = new BsonDocument
                 {
                     { "Id", e.CaseId },
-                    { "Type", e.CaseType }
+                    { "EntityId", e.EntityId },
+                    { "Type", Enum.GetName(typeof(CaseType), e.CaseType) }
                 };
 
                 caseCollection.InsertOne(document);

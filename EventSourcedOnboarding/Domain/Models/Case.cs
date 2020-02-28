@@ -22,7 +22,7 @@ namespace Domain
 
         public Case(CaseType caseType, Guid entityId, string entityName) : this()
         {
-            Raise(new CaseInitiated(Guid.NewGuid(), caseType));
+            Raise(new CaseInitiated(Guid.NewGuid(), entityId, caseType));
             Raise(new EntityCreated(entityId, entityName));
         }
 
