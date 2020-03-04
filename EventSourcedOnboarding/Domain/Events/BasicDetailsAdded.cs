@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,8 +16,11 @@ namespace Domain.Events
         }
 
         public Guid CaseId { get; }
+
         public Guid EntityId { get; }
+        
         public string DateOfBirth { get; }
+        
         public string CountryOfResidence { get; }
     }
 }

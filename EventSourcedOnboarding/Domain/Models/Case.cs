@@ -40,6 +40,11 @@ namespace Domain
 
         public void When(CaseInitiated e)
         {
+            if(e.EntityId != null)
+            {
+                EntityId = e.EntityId;
+            }
+
             Id = e.CaseId;
             CaseType = e.CaseType;
             CurrentStatus = CaseStatus.InProgress;

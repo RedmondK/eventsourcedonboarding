@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,6 +14,7 @@ namespace Domain.Events
         }
 
         public Guid EntityId { get; }
+
         public string EntityName { get; }
     }
 }

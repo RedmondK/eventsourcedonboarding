@@ -24,7 +24,7 @@ namespace ProjectionFramework
 
                 var document = new BsonDocument
                 {
-                    { "Id", e.EntityId },
+                    { "Id", e.EntityId.ToString() },
                     { "Name", e.EntityName }
                 };
 
@@ -40,7 +40,7 @@ namespace ProjectionFramework
 
                 projectionRepository.Connect();
 
-                var filter = Builders<BsonDocument>.Filter.Eq("Id", e.EntityId);
+                var filter = Builders<BsonDocument>.Filter.Eq("Id", e.EntityId.ToString());
                 var entityCollection = projectionRepository.GetCollection("Entity");
 
                 var searchResult = entityCollection.Find(filter);

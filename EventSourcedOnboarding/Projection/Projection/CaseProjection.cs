@@ -23,8 +23,8 @@ namespace ProjectionFramework
 
                 var document = new BsonDocument
                 {
-                    { "Id", e.CaseId },
-                    { "EntityId", e.EntityId },
+                    { "Id", e.CaseId.ToString() },
+                    { "EntityId", e.EntityId.ToString() },
                     { "Type", Enum.GetName(typeof(CaseType), e.CaseType) }
                 };
 
