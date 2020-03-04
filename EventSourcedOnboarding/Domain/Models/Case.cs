@@ -22,8 +22,8 @@ namespace Domain
 
         public Case(CaseType caseType, Guid entityId, string entityName) : this()
         {
-            Raise(new CaseInitiated(Guid.NewGuid(), entityId, caseType));
             Raise(new EntityCreated(entityId, entityName));
+            Raise(new CaseInitiated(Guid.NewGuid(), entityId, caseType));
         }
 
         private Case()
